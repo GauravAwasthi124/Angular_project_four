@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="first">
+        <div class="second">
+            Admin::Login
+        </div>
+        <form [formGroup]="form" (submit)="submit()">
+            <div class="example-container">
+                <mat-form-field>
+                    <mat-label>Enter your Email</mat-label>
+                    <input matInput placeholder="test@admin.com" [formControl]="email" (blur)="updateErrorMessage()"
+                        required />
+                    <mat-error *ngIf="email.invalid">
+                        {{ errorMessage() }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Enter your Password</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" [formControl]="password" />
+                    <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+            <div class="example-button-container">
+                <button mat-fab extended class="btnone" type="submit">
+                    <mat-icon>cloud</mat-icon>
+                    Submit
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button mat-fab extended class="btnone" (click)="reset()">
+                    <mat-icon>clear</mat-icon>
+                    Clear
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

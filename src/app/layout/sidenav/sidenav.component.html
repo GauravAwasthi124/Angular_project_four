@@ -1,0 +1,65 @@
+<div class="sidebar" [ngClass]="{ 'showSidebar': isSidebarVisible, 'hideSidebar': !isSidebarVisible }" [@fadeInOut]>
+    <ul>
+        
+        <li>
+            <a routerLinkActive="active" (click)="toggleCategory()">
+                <span class="menu-icon material-icons">category</span>
+                <span class="menu-text">Category</span>
+                <span class="sub-menu-icon" [ngClass]="{ 'sub-menu-open': isCategory }">
+                    <mat-icon>{{ isCategory ? 'keyboard_arrow_down' : 'keyboard_arrow_right' }}</mat-icon>
+                </span>
+            </a>
+            <ul *ngIf="isCategory" class="sub-menu">
+                <li>
+                    <a routerLink="/category" routerLinkActive="active">
+                        <span class="menu-icon material-icons">add</span>
+                        <span class="menu-text">Add Category</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/subcategory" routerLinkActive="active">
+                        <span class="menu-icon material-icons">add</span>
+                        <span class="menu-text">Add SubCategory</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        
+        <li>
+            <a routerLinkActive="active" (click)="toggleEmployee()">
+                <span class="menu-icon material-icons">person</span>
+                <span class="menu-text">Employee's</span>
+                <span class="sub-menu-icon" [ngClass]="{ 'sub-menu-open': isEmployee }">
+                    <mat-icon>{{ isEmployee ? 'keyboard_arrow_down' : 'keyboard_arrow_right' }}</mat-icon>
+                </span>
+            </a>
+            <ul *ngIf="isEmployee" class="sub-menu">
+                <li>
+                    <a routerLink="/employee" routerLinkActive="active">
+                        <span class="menu-icon material-icons">add</span>
+                        <span class="menu-text">Add Employees</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </li>
+        <li>
+            <a routerLinkActive="active" (click)="toggleProduct()">
+                <span class="menu-icon material-icons">inventory</span>
+                <span class="menu-text">Product's</span>
+                <span class="sub-menu-icon" [ngClass]="{ 'sub-menu-open': isProduct }">
+                    <mat-icon>{{ isProduct ? 'keyboard_arrow_down' : 'keyboard_arrow_right' }}</mat-icon>
+                </span>
+            </a>
+            <ul *ngIf="isProduct" class="sub-menu">
+                <li>
+                    <a routerLink="/login" routerLinkActive="active">
+                        <span class="menu-icon material-icons">add</span>
+                        <span class="menu-text">Add Products</span>
+                    </a>
+                </li>
+        
+            </ul>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,192 @@
+<div class="first">
+    <div class="example-button-container"> 
+        <a mat-fab extended (click)="toggleForm()">
+            <mat-icon>add</mat-icon>
+            Add Users
+        </a>
+    </div> 
+</div>
+
+
+
+<!-- Form Data -->
+<form [formGroup]="employeeform" (submit)="saveData()">
+<div class="second" *ngIf="showForm">
+
+    <!-- First name -->
+        <div class="one">
+            <mat-form-field style="width: 30%;">
+                <mat-label>First Name</mat-label>
+                <input matInput 
+                placeholder="Ex. Vikash" 
+                style="width: 100%;" 
+                formControlName="fname"
+                />
+            </mat-form-field>
+        </div>
+        
+
+        <!-- Last Name -->
+        <div class="two">
+            <mat-form-field style="width: 30%;">
+                <mat-label>Last Name</mat-label>
+                <input matInput 
+                placeholder="Ex. Kumar" 
+                style="width: 100%;" 
+                formControlName="lname"
+                
+                />
+            </mat-form-field>
+        </div>
+
+        <!-- userrole -->
+        <div class="three">
+            <mat-form-field style="width: 30%;">
+                <mat-label>User Role</mat-label>
+                <mat-select formControlName="userrole" >
+                    <mat-option value="admin">Admin</mat-option>
+                    <mat-option value="user">User</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <!-- email -->
+        <div class="four">
+            <div class="example-container">
+                <mat-form-field style="width: 30%;">
+                    <mat-label>Enter your email</mat-label>
+                    <input matInput 
+                    placeholder="pat@example.com" 
+                    formControlName="email"
+                    (blur)="updateErrorMessage()" 
+                    required />
+                    <mat-error *ngIf="employeeform.get('email')?.invalid">
+                        {{ errorMessage() }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- create password -->
+        <div class="five">
+            <div class="example-container">
+                <mat-form-field style="width: 30%;">
+                    <mat-label>Create password</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" formControlName="newpassword" />
+                    <button mat-icon-button matSuffix type="button" (click)="clickEvent($event)"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- conform password -->
+        <div class="five">
+            <div class="example-container">
+                <mat-form-field style="width: 30%;">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput [type]="hidetwo() ? 'password' : 'text'" formControlName="conformpassword" />
+                    <button mat-icon-button matSuffix type="button" (click)="clickEventSecond($event)"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidetwo()">
+                        <mat-icon>{{hidetwo() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Error message on unmatched password and provide all the fields -->
+    <!-- <div *ngIf="message()" style="color: red; margin-top: 10px;">
+        {{ message() }}
+    </div> -->
+    <mat-error *ngIf="message()">
+        {{  message() }}
+    </mat-error>
+
+        <!-- Save button -->
+        <div class="six">
+            <div class="example-button-container">
+                <button mat-fab extended type="submit"> <!-- Make sure type is "submit" -->
+                    <mat-icon>save</mat-icon>
+                    Submit
+                </button>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+            <!-- Clear the form -->
+            <div class="example-button-container">
+                <button mat-fab extended type="reset" 
+                (click)="clearForm()"
+                >
+                    <mat-icon>clear</mat-icon>
+                    Clear
+                </button>
+            </div>
+
+        </div>
+
+</div>
+</form>
+
+<!-- <pre *ngFor="let employee of empdata">
+    {{ employee.fname + ' ' + employee.lname }}
+    {{employee.email}}
+    {{employee.userrole}}
+</pre> -->
+
+
+
+
+
+
+<!-- table data -->
+<div class="fourth">
+    <mat-table [dataSource]="empdata" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="num">
+            <mat-header-cell *matHeaderCellDef> Sr.NO </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i=index"> {{i+1}} </mat-cell>
+        </ng-container>
+
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="fname">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.fname + ' ' + element.lname | uppercase}} </mat-cell>
+        </ng-container>
+
+
+        <!-- User Role Column -->
+        <ng-container matColumnDef="userrole">
+            <mat-header-cell *matHeaderCellDef> User Role </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.userrole | uppercase}}</mat-cell>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.email | lowercase}}</mat-cell>
+        </ng-container>
+
+        <!-- Edit Button Column -->
+        <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let element ; let i = index">
+                <mat-icon color="blue" (click)="editEmployee(i)">edit</mat-icon>
+            </mat-cell>
+        </ng-container>
+
+        <!-- Delete Button Column -->
+        <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index">
+                <mat-icon color="blue" (click)="deleteEmployee(i)">delete</mat-icon>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

@@ -1,0 +1,33 @@
+<div class="first">
+    <div class="example-button-container">
+        <a mat-fab extended (click)="toggleForm()">
+            <mat-icon>add</mat-icon>
+            Add Category
+        </a>
+    </div>
+</div>
+
+
+<form>
+    <div class="second">
+
+        <!-- category name -->
+            <div class="one">
+                <mat-form-field style="width: 30%;">
+                    <mat-label>Category Name</mat-label>
+                    <input matInput 
+                    placeholder="Ex. Man" 
+                    style="width: 100%;" 
+                    formControlName="categoryname" />
+                </mat-form-field>
+            </div>
+
+
+        <!-- created by user that will get from the session storage after login -->
+            <div class="two">
+                    <!-- <label>Category Name</label> -->
+                    <input  type="hidden" formControlName="categoryname" />
+            </div>
+
+    </div>
+</form>
